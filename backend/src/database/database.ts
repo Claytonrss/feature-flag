@@ -1,18 +1,19 @@
 import sqlite3 from "sqlite3";
-import { open } from "sqlite";
+import { Database, open } from "sqlite";
 
-export const openDb = async () => {
-  const db = await open({
-    filename: "./mydb.sqlite",
-    driver: sqlite3.Database,
-  });
-
+const initializeTables = async (
+  db: Database<sqlite3.Database, sqlite3.Statement>
+) => {
   await db.exec(`CREATE TABLE IF NOT EXISTS feature_flags (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT UNIQUE,
-      status BOOLEAN
-    )`);
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT UNIQUE,
+    status BOOLEAN
+  )`);
+};
 
+const insertDefaultFlags = async (
+  db: Database<sqlite3.Database, sqlite3.Statement>
+) => {
   const defaultFlags = [
     { name: "isBlackFair", status: true },
     { name: "isNewCard", status: false },
@@ -30,6 +31,22 @@ export const openDb = async () => {
       ]);
     }
   }
+};
+
+export const openDb = async () => {
+  if (!process.env.DATABASE_FILENAME) {
+    throw new Error(
+      "A variável DATABASE_FILENAME não está definida no arquivo .env"
+    );
+  }
+
+  const db = await open({
+    filename: process.env.DATABASE_FILENAME,
+    driver: sqlite3.Database,
+  });
+
+  await initializeTables(db);
+  await insertDefaultFlags(db);
 
   return db;
 };
