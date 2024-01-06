@@ -1,7 +1,7 @@
 import sqlite3 from "sqlite3";
 import { Database, open } from "sqlite";
 
-const initializeTables = async (
+export const initializeTables = async (
   db: Database<sqlite3.Database, sqlite3.Statement>
 ) => {
   await db.exec(`CREATE TABLE IF NOT EXISTS feature_flags (
@@ -11,7 +11,7 @@ const initializeTables = async (
   )`);
 };
 
-const insertDefaultFlags = async (
+export const insertDefaultFlags = async (
   db: Database<sqlite3.Database, sqlite3.Statement>
 ) => {
   const defaultFlags = [
@@ -33,15 +33,9 @@ const insertDefaultFlags = async (
   }
 };
 
-export const openDb = async () => {
-  if (!process.env.DATABASE_FILENAME) {
-    throw new Error(
-      "A variável DATABASE_FILENAME não está definida no arquivo .env"
-    );
-  }
-
+export const openDb = async (databaseFilename: string) => {
   const db = await open({
-    filename: process.env.DATABASE_FILENAME,
+    filename: databaseFilename,
     driver: sqlite3.Database,
   });
 
