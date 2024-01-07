@@ -9,7 +9,8 @@ const options: cors.CorsOptions = {
   origin: ALLOWED_ORIGINS,
 };
 
-app.use(cors(options));
+// app.use(cors(options));
+app.use(cors());
 app.use(express.json());
 app.use("/feature-flags", featureFlagsRouter);
 
