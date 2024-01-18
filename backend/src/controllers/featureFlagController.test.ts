@@ -22,7 +22,6 @@ describe("FeatureFlag Controller", () => {
     await initializeTables(db);
     await insertDefaultFlags(db);
 
-    // Injetando dependências
     app.get("/feature-flags", (req, res) =>
       featureFlagController.getAllFlags(db, req, res)
     );
