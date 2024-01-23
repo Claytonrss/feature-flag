@@ -1,7 +1,6 @@
 import * as dotenv from "dotenv";
 
-const envFile = process.env.NODE_ENV === "development" ? ".env.dev" : ".env";
-dotenv.config({ path: envFile });
+dotenv.config();
 
 if (!process.env.PORT || !process.env.ALLOWED_ORIGINS) {
   throw new Error("As variáveis de ambiente necessárias não estão definidas.");

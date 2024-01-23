@@ -25,8 +25,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DATABASE_FILENAME = exports.ALLOWED_ORIGINS = exports.PORT = void 0;
 const dotenv = __importStar(require("dotenv"));
-const envFile = process.env.NODE_ENV === "development" ? ".env.dev" : ".env";
-dotenv.config({ path: envFile });
+// const envFile = process.env.NODE_ENV === "development" ? ".env.dev" : ".env";
+dotenv.config();
 if (!process.env.PORT || !process.env.ALLOWED_ORIGINS) {
     throw new Error("As variáveis de ambiente necessárias não estão definidas.");
 }
