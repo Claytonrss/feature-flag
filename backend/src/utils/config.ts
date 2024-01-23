@@ -13,7 +13,10 @@ if (!process.env.DATABASE_FILENAME) {
 }
 
 const PORT = process.env.PORT || 3001;
+console.log("🚀 ~ PORT:", PORT)
 const ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS.split(",");
+console.log("🚀 ~ ALLOWED_ORIGINS:", ALLOWED_ORIGINS)
 const DATABASE_FILENAME = process.env.DATABASE_FILENAME;
+console.log("🚀 ~ DATABASE_FILENAME:", DATABASE_FILENAME)
 
 export { PORT, ALLOWED_ORIGINS, DATABASE_FILENAME };
